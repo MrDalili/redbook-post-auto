@@ -9,8 +9,14 @@
 
 我们致力于为创作者提供一个直观、高效的创作平台,让您专注于内容本身,而无需担心繁琐的排版细节。无论您是经验丰富的博主还是刚起步的新手,我们的工具都能帮您轻松制作出精美的小红书图文。
 
+# 使用教程
+所有的代码均在 image.html中
+
+# 言外
+使用 cursor 1天完成，纯打字打出来的... 没有好的编码格式见谅
+
 # 直接使用地址
-[小红书post自动化](https://xiaohongshu.zhieasy.cn)
+[小红书post自动化](https://xiaohongshu.zhieasy.cn?title=奥运会的多重价值&content=%5B"内容：奥运会作为一个全球性的体育盛事，不仅展示了体育竞技的魅力，更是各国文化和城市特色展示的重要平台。通过这样的国际活动，可以有效地提升一个城市的国际形象和吸引力。"%2C"核心句式：The%20Olympic%20Games%2C%20as%20a%20global%20sporting%20event%2C%20not%20only%20showcase%20the%20charm%20of%20sports%20but%20also%20serve%20as%20a%20significant%20platform%20for%20displaying%20the%20cultures%20and%20city%20characteristics%20of%20various%20countries.%20Such%20international%20events%20effectively%20enhance%20a%20city%27s%20international%20image%20and%20appeal."%5D)
 
 # Todo List
 ```
