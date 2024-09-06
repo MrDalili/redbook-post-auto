@@ -18,18 +18,49 @@
                 <span>选择背景：</span>
                 <div class="background-images">
                     <div class="background-option-container">
-                        <img src="https://file.yboshi.com/%E6%A0%BC%E5%AD%90%E5%9B%BE.png" alt="格子图" data-value="grid" class="background-option">
-                        <span class="background-label">格子图</span>
+                        <img src="https://file.yboshi.com/%E6%A0%BC%E5%AD%90%E5%9B%BE.png" alt="背景1" data-value="grid" class="background-option">
+                        <span class="background-label">背景1</span>
                     </div>
                     <div class="background-option-container">
-                        <img src="https://file.yboshi.com/%E5%B0%8F%E7%BA%A2%E4%B9%A6%E8%83%8C%E6%99%AF.png" alt="苹果备忘录" data-value="memo" class="background-option">
-                        <span class="background-label">备忘录</span>
+                        <img src="https://file.yboshi.com/%E5%B0%8F%E7%BA%A2%E4%B9%A6%E8%83%8C%E6%99%AF.png" alt="背景2" data-value="memo" class="background-option">
+                        <span class="background-label">背景2</span>
                     </div>
                     <div class="background-option-container">
-                        <img src="https://image.songuo.zhieasy.cn/forum/1725505416589_amgdsbt9f.png" alt="新背景" data-value="new" class="background-option">
-                        <span class="background-label">蓝边框</span>
+                        <img src="https://image.songuo.zhieasy.cn/forum/1725505416589_amgdsbt9f.png" alt="背景3" data-value="new" class="background-option">
+                        <span class="background-label">背景3</span>
                     </div>
-                    <!-- 可以继续添加更多背景图片 -->
+                    <div class="background-option-container">
+                        <img src="https://image.songuo.zhieasy.cn/forum/1725607732456_ql03ire97.png" alt="背景4" data-value="pink" class="background-option">
+                        <span class="background-label">背景4</span>
+                    </div>
+                    <div class="background-option-container">
+                        <img src="https://image.songuo.zhieasy.cn/forum/1725607734325_lnnnzgok7.png" alt="背景5" data-value="blue" class="background-option">
+                        <span class="background-label">背景5</span>
+                    </div>
+                    <div class="background-option-container">
+                        <img src="https://image.songuo.zhieasy.cn/forum/1725607736386_ow6mw8bwe.png" alt="背景6" data-value="green" class="background-option">
+                        <span class="background-label">背景6</span>
+                    </div>
+                    <div class="background-option-container">
+                        <img src="https://image.songuo.zhieasy.cn/forum/1725607738327_vwwvygpi4.png" alt="背景7" data-value="yellow" class="background-option">
+                        <span class="background-label">背景7</span>
+                    </div>
+                    <div class="background-option-container">
+                        <img src="https://image.songuo.zhieasy.cn/forum/1725607740238_wi1am6ima.png" alt="背景8" data-value="purple" class="background-option">
+                        <span class="background-label">背景8</span>
+                    </div>
+                    <div class="background-option-container">
+                        <img src="https://image.songuo.zhieasy.cn/forum/1725608522987_mwoy09rt7.png" alt="背景9" data-value="bg9" class="background-option">
+                        <span class="background-label">背景9</span>
+                    </div>
+                    <div class="background-option-container">
+                        <img src="https://image.songuo.zhieasy.cn/forum/1725608524550_858mc01w7.png" alt="背景10" data-value="bg10" class="background-option">
+                        <span class="background-label">背景10</span>
+                    </div>
+                    <div class="background-option-container">
+                        <img src="https://image.songuo.zhieasy.cn/forum/1725608526559_ll4k5eipw.png" alt="背景11" data-value="bg11" class="background-option">
+                        <span class="background-label">背景11</span>
+                    </div>
                 </div>
             </div>
             <div class="font-toggle">
@@ -244,7 +275,7 @@
                 console.error('AI润色失败:', error);
                 alert('AI润色失败,请稍后重试');
             } finally {
-                // 无论成功否,都重新启用按钮并隐藏加载提示
+                // 无论成功否,都重新启���按钮并隐藏加载提示
                 aiPolishButton.disabled = false;
                 aiPolishButton.textContent = 'AI润色';
                 polishingIndicator.style.display = 'none';
@@ -648,7 +679,7 @@
                 ctx.scale(scale, scale);
 
                 try {
-                    // 根据选择加载不同的背图片
+                    // 根据选择加载不同的背景图片
                     let backgroundUrl;
                     switch (selectedBackground) {
                         case 'grid':
@@ -660,7 +691,30 @@
                         case 'new':
                             backgroundUrl = 'https://image.songuo.zhieasy.cn/forum/1725505416589_amgdsbt9f.png';
                             break;
-                        // 可以继续添加更多背景选项
+                        case 'pink':
+                            backgroundUrl = 'https://image.songuo.zhieasy.cn/forum/1725607732456_ql03ire97.png';
+                            break;
+                        case 'blue':
+                            backgroundUrl = 'https://image.songuo.zhieasy.cn/forum/1725607734325_lnnnzgok7.png';
+                            break;
+                        case 'green':
+                            backgroundUrl = 'https://image.songuo.zhieasy.cn/forum/1725607736386_ow6mw8bwe.png';
+                            break;
+                        case 'yellow':
+                            backgroundUrl = 'https://image.songuo.zhieasy.cn/forum/1725607738327_vwwvygpi4.png';
+                            break;
+                        case 'purple':
+                            backgroundUrl = 'https://image.songuo.zhieasy.cn/forum/1725607740238_wi1am6ima.png';
+                            break;
+                        case 'bg9':
+                            backgroundUrl = 'https://image.songuo.zhieasy.cn/forum/1725608522987_mwoy09rt7.png';
+                            break;
+                        case 'bg10':
+                            backgroundUrl = 'https://image.songuo.zhieasy.cn/forum/1725608524550_858mc01w7.png';
+                            break;
+                        case 'bg11':
+                            backgroundUrl = 'https://image.songuo.zhieasy.cn/forum/1725608526559_ll4k5eipw.png';
+                            break;
                         default:
                             backgroundUrl = 'https://file.yboshi.com/%E6%A0%BC%E5%AD%90%E5%9B%BE.png';
                     }
@@ -696,7 +750,7 @@
 
                         let xPosition;
                         if (item.type === 'title') {
-                            // 对于标题，我们不需���预先计算 xPosition，因为每行都会在 drawTextWithEmoji 中单独计算
+                            // 对于标题，我们不需预先计算 xPosition，因为每行都会在 drawTextWithEmoji 中单独计算
                             const result = await drawTextWithEmoji(ctx, canvas, item, 0, y, canvas.width / scale, canvas.height);
                             y = result.y;
                             y += 5; // 减少标题底部间距

@@ -262,9 +262,12 @@ body {
         }
 
         .background-images {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            max-height: 200px; /* 调整这个值以适应两行背景选项 */
+            overflow-y: auto;
+            padding-right: 10px; /* 为滚动条留出空间 */
         }
 
         .background-option-container {
@@ -275,21 +278,44 @@ body {
         }
 
         .background-option {
-            width: 60px;
-            height: 80px;
+            width: 50px;
+            height: 70px;
             object-fit: cover;
             cursor: pointer;
             border: 2px solid transparent;
             margin-bottom: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        .background-option:hover {
+            border-color: #3498db;
         }
 
         .background-option.selected {
-            border-color: #007bff;
+            border-color: #3498db;
         }
 
         .background-label {
             font-size: 12px;
             color: #666;
+        }
+
+        /* 自定义滚动条样式 */
+        .background-images::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .background-images::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .background-images::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+
+        .background-images::-webkit-scrollbar-thumb:hover {
+            background: #555;
         }
 
         .input-tabs {
