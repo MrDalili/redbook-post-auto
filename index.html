@@ -85,7 +85,6 @@
 
             <div class="tab-content" id="manual-input" style="display: none;">
                 <form id="inputForm">
-                    <button type="button" id="addInputButton" class="add-button">+</button>
                     <div id="loadingIndicator">字体加载中，请稍候...</div>
                 </form>
             </div>
@@ -127,20 +126,15 @@
     <script>
         const content = [];
 
-        document.getElementById('addInputButton').addEventListener('click', () => {
-            addInputGroup();
-        });
-
-        function addInputGroup(type = 'content', text = '') {
-            console.log('添加输入组:', type, text); // 添加日志
+        function addInputGroup(type = 'content', text = '', insertAfter = null) {
+            console.log('添加输入组:', type, text);
             const inputGroup = document.createElement('div');
             inputGroup.className = 'input-group';
-            inputGroup.style.position = 'relative';
 
             const textInput = document.createElement('div');
             textInput.className = 'editable';
             textInput.contentEditable = true;
-            textInput.innerHTML = text; // 使用 innerHTML 而不是 textContent
+            textInput.innerHTML = text;
             textInput.addEventListener('mouseup', showFloatingToolbar);
             textInput.addEventListener('input', updateContent);
 
@@ -152,27 +146,32 @@
             `;
             textType.value = type;
 
+            const buttonsContainer = document.createElement('div');
+            buttonsContainer.className = 'input-group-buttons';
+
+            const addButton = document.createElement('button');
+            addButton.className = 'add-button';
+            addButton.innerHTML = '+';
+            addButton.type = 'button';
+            addButton.addEventListener('click', () => addInputGroup('content', '', inputGroup));
+
             const deleteButton = document.createElement('button');
             deleteButton.className = 'delete-button';
-            deleteButton.innerHTML = '×'; // 将减号改为 'x'
-            deleteButton.style.position = 'absolute'; // 用绝对定位
-            deleteButton.style.top = '5px'; // 距离顶部 5px
-            deleteButton.style.right = '5px'; // 距离右侧 5px
-            deleteButton.style.width = '20px'; // 减小度
-            deleteButton.style.height = '20px'; // 减小高度
-            deleteButton.style.padding = '0'; // 移除内边距
-            deleteButton.style.lineHeight = '1'; // 调整行高使 'x' 居中
-            deleteButton.style.fontSize = '16px'; // 调整字体大小
+            deleteButton.innerHTML = '×';
+            deleteButton.type = 'button';
             deleteButton.addEventListener('click', () => {
                 if (document.querySelectorAll('.input-group').length > 1) {
                     inputGroup.remove();
                 } else {
-                    alert('至少留一个输入框');
+                    alert('至少保留一个输入框');
                 }
             });
 
+            buttonsContainer.appendChild(addButton);
+            buttonsContainer.appendChild(deleteButton);
+
             const labelMap = {
-                'title': '题',
+                'title': '标题',
                 'content': '内容',
             };
 
@@ -183,11 +182,14 @@
             inputGroup.appendChild(label);
             inputGroup.appendChild(textType);
             inputGroup.appendChild(textInput);
-            inputGroup.appendChild(deleteButton);
+            inputGroup.appendChild(buttonsContainer);
 
             const inputForm = document.getElementById('inputForm');
-            const addInputButton = document.getElementById('addInputButton');
-            inputForm.insertBefore(inputGroup, addInputButton);
+            if (insertAfter) {
+                insertAfter.parentNode.insertBefore(inputGroup, insertAfter.nextSibling);
+            } else {
+                inputForm.appendChild(inputGroup);
+            }
         }
 
         function showFloatingToolbar(e) {
@@ -275,7 +277,7 @@
                 console.error('AI润色失败:', error);
                 alert('AI润色失败,请稍后重试');
             } finally {
-                // 无论成功否,都重新启���按钮并隐藏加载提示
+                // 无论成功否,都重新启按钮并隐藏加载提示
                 aiPolishButton.disabled = false;
                 aiPolishButton.textContent = 'AI润色';
                 polishingIndicator.style.display = 'none';
@@ -351,6 +353,13 @@
                     alert('AI 分段润色失败，请稍后重试');
                 }
             });
+
+            const form = document.getElementById('inputForm');
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                });
+            }
         });
 
         function updateContentWithPolishedVersion(polishedContent) {
@@ -840,6 +849,12 @@
             // 如果没有添加任何输入框，则添加一个默认的空白输入框
             if (inputForm.querySelectorAll('.input-group').length === 0) {
                 addInputGroup();
+            }
+
+            // 移除原有的全局添加按钮
+            const globalAddButton = document.getElementById('addInputButton');
+            if (globalAddButton) {
+                globalAddButton.remove();
             }
 
             // 确保有一个默认选中的背景
