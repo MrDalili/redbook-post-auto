@@ -20,8 +20,11 @@ body {
             width: 40%;
             padding: 20px;
             border-right: 1px solid #e0e0e0;
-            position: relative; /* 添加相对定位 */
-            padding-bottom: 80px; /* 为固定按钮留出空间 */
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 40px); /* 减去body的padding */
+            overflow-y: auto; /* 添加这行 */
         }
         .right-panel {
             width: 60%;
@@ -138,7 +141,7 @@ body {
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 120px; /* 调整宽度以适应按钮 */
+            width: 120px; /* 调整宽度以应按钮 */
         }
         .color-picker-label {
             font-size: 12px;
@@ -208,22 +211,36 @@ body {
             font-style: normal;
         }
 
-        .floating-buttons {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 40%;
-            background-color: #ffffff;
-            padding: 10px 20px;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        #manual-input {
             display: flex;
-            justify-content: space-around;
-            z-index: 1000;
+            flex-direction: column;
+            min-height: 100%; /* 改为min-height */
         }
 
-        .floating-buttons button {
+        #inputForm {
+            flex-grow: 1;
+            padding-bottom: 20px; /* 为按钮留出空间 */
+        }
+
+        .action-buttons {
+            position: sticky;
+            bottom: 0;
+            background-color: #ffffff;
+            padding: 10px 0;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .action-buttons button {
             flex: 1;
             margin: 0 5px;
+        }
+
+        /* 移除之前的 .floating-buttons 样式 */
+        .floating-buttons {
+            display: none;
         }
 
         @media (max-width: 1200px) {
@@ -258,7 +275,7 @@ body {
             gap: 10px;
             max-height: 200px; /* 调整这个值以适应两行背景选项 */
             overflow-y: auto;
-            padding-right: 10px; /* 为滚动条留出空间 */
+            padding-right: 10px; /* 为滚动条留出间 */
         }
 
         .background-option-container {
@@ -375,4 +392,11 @@ body {
 
         #segmentButton.processing {
             animation: pulse 1.5s infinite;
+        }
+
+        /* 确保内容不会被底部按钮遮挡 */
+        #inputForm::after {
+            content: '';
+            display: block;
+            height: 70px; /* 根据按钮容器的高度调整 */
         }
