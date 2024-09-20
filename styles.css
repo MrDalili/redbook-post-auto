@@ -1,0 +1,418 @@
+body {
+    font-family: 'Microsoft YaHei', sans-serif;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    position: relative;
+}
+
+.ai-daily-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #ff4757;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.ai-daily-button:hover {
+    background-color: #ff6b81;
+}
+
+        .left-panel {
+            width: 40%;
+            padding: 20px;
+            border-right: 1px solid #e0e0e0;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 40px); /* 减去body的padding */
+            overflow-y: auto; /* 添加这行 */
+        }
+        .right-panel {
+            width: 60%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .input-group {
+            margin-bottom: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        .input-group-buttons {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            display: flex;
+            gap: 5px;
+        }
+        .add-button, .delete-button {
+            width: 20px;
+            height: 20px;
+            font-size: 16px;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            line-height: 1;
+            border-radius: 50%;
+        }
+        .add-button {
+            background-color: #2ecc71;
+        }
+        .add-button:hover {
+            background-color: #27ae60;
+        }
+        .delete-button {
+            background-color: #e74c3c;
+        }
+        .delete-button:hover {
+            background-color: #c0392b;
+        }
+        .editable {
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            padding: 8px;
+            margin-top: 8px;
+            background-color: #ffffff;
+            transition: border-color 0.3s ease;
+            font-size: 14px;
+            padding-right: 50px;
+        }
+        .editable:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        select, input[type="radio"] {
+            margin-right: 8px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-size: 14px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        .background-select, .font-toggle {
+            margin-bottom: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 10px;
+        }
+        .background-select label, .font-toggle label {
+            margin-right: 12px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        #loadingIndicator {
+            text-align: center;
+            color: #3498db;
+            font-style: italic;
+            font-size: 14px;
+        }
+        .floating-toolbar {
+            position: absolute;
+            background-color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            padding: 10px;
+            display: flex;
+            gap: 15px;
+        }
+        .color-picker-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 120px; /* 调整宽度以应按钮 */
+        }
+        .color-picker-label {
+            font-size: 12px;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .color-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+            margin-bottom: 5px;
+        }
+        .color-option {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+        .color-option:hover {
+            border-color: #999;
+        }
+        .color-picker-custom {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .color-picker-custom input[type="color"] {
+            width: 20px;
+            height: 20px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 0;
+            background: none;
+        }
+        .toolbar-divider {
+            width: 1px;
+            background-color: #e0e0e0;
+            align-self: stretch;
+        }
+        .color-picker-container button {
+            margin-top: 5px;
+            width: 100%;
+            padding: 5px;
+            font-size: 12px;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap');
+        @font-face {
+            font-family: 'Virgil';
+            src: url('https://excalidraw.com/Virgil.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Cascadia';
+            src: url('https://excalidraw.com/Cascadia.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Chinese';
+            src: url('https://file.yboshi.com/Chinese.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        #manual-input {
+            display: flex;
+            flex-direction: column;
+            min-height: 100%; /* 改为min-height */
+        }
+
+        #inputForm {
+            flex-grow: 1;
+            padding-bottom: 20px; /* 为按钮留出空间 */
+        }
+
+        .action-buttons {
+            position: sticky;
+            bottom: 0;
+            background-color: #ffffff;
+            padding: 10px 0;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .action-buttons button {
+            flex: 1;
+            margin: 0 5px;
+        }
+
+        /* 移除之前的 .floating-buttons 样式 */
+        .floating-buttons {
+            display: none;
+        }
+
+        @media (max-width: 1200px) {
+            .floating-buttons {
+                width: calc(40% - 40px); /* 考虑到 container 的 padding */
+            }
+        }
+
+        #polishingIndicator {
+            text-align: center;
+            color: #3498db;
+            font-style: italic;
+            margin-top: 10px;
+        }
+        
+        .loading-dots {
+            display: inline-block;
+            width: 20px;
+            text-align: left;
+            animation: loadingDots 1.5s infinite;
+        }
+        
+        @keyframes loadingDots {
+            0% { content: '.'; }
+            33% { content: '..'; }
+            66% { content: '...'; }
+        }
+
+        .background-images {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            max-height: 200px; /* 调整这个值以适应两行背景选项 */
+            overflow-y: auto;
+            padding-right: 10px; /* 为滚动条留出间 */
+        }
+
+        .background-option-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .background-option {
+            width: 50px;
+            height: 70px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+            margin-bottom: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        .background-option:hover {
+            border-color: #3498db;
+        }
+
+        .background-option.selected {
+            border-color: #3498db;
+        }
+
+        .background-label {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* 自定义滚动条样式 */
+        .background-images::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .background-images::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .background-images::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+
+        .background-images::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .input-tabs {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .tab-button.active {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        #ai-input {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            resize: vertical;
+        }
+
+        #ai-polish-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #ai-polish-button:hover {
+            background-color: #27ae60;
+        }
+
+        #segmentButton {
+            transition: all 0.3s ease;
+        }
+
+        #segmentButton.processing {
+            background-color: #f0f0f0;
+            color: #888;
+            cursor: not-allowed;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        #segmentButton.processing {
+            animation: pulse 1.5s infinite;
+        }
+
+        /* 确保内容不会被底部按钮遮挡 */
+        #inputForm::after {
+            content: '';
+            display: block;
+            height: 70px; /* 根据按钮容器的高度调整 */
+        }

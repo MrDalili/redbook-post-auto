@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自动化生成图表</title>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .left-panel, .right-panel {
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .left-panel {
+            width: 30%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .right-panel {
+            width: 70%;
+            background-color: #ffffff;
+            border-left: 1px solid #ccc;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 300px;
+        }
+        h2 {
+            color: #333;
+            margin-top: 0;
+        }
+        select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .input-group {
+            margin-bottom: 10px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="left-panel">
+        <div class="card">
+            <h2>操作区</h2>
+            <select id="mode-selector"></select>
+            <div id="daily-sentence-inputs" style="display: none;">
+                <div class="input-group">
+                    <label for="current-day">当前天数:</label>
+                    <input type="number" id="current-day" min="1" value="1">
+                </div>
+                <div class="input-group">
+                    <label for="custom-sentence">自定义长难句:</label>
+                    <input type="text" id="custom-sentence" placeholder="输入长难句(可选)">
+                </div>
+            </div>
+            <button onclick="generateContent(document.getElementById('mode-selector').value)">开始生成</button>
+        </div>
+    </div>
+    <div class="right-panel">
+        <h2>结果展示区</h2>
+        <div id="result"></div>
+    </div>
+    <!-- 首先加载 ai-helper.js -->
+    <script src="ai-helper.js"></script>
+
+    <!-- 然后是主脚本 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', populateModeSelector);
+
+        // 修改 adjustCardSize 函数
+        function adjustCardSize(iframe) {
+    console.log('开始执行 adjustCardSize 函数');
+    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+    const card = iframeDoc.querySelector('.card');
+    const content = iframeDoc.querySelector('.content');
+    
+    if (!card || !content) {
+        console.log('未找到 .card 或 .content 元素，函数终止');
+        return;
+    }
+
+    console.log('找到 .card 和 .content 元素');
+    let currentWidth = 300; // 初始宽度
+    const minWidth = 300; // 最小宽度
+    const maxWidth = Math.min(900, window.innerWidth * 0.9); // 最大宽度，不超过窗口宽度的90%
+    const step = 5; // 每次调整的宽度
+    const maxIterations = 100; // 最大迭代次数
+    let iterations = 0;
+
+    function hasVerticalScrollbar(element) {
+        return element.scrollHeight > element.clientHeight;
+    }
+
+    function resize() {
+        card.style.width = `${currentWidth}px`;
+        card.style.maxWidth = `${currentWidth}px`;
+        console.log(`当前 width: ${currentWidth}px`);
+
+        // 检查是否有垂直滚动条
+        if (hasVerticalScrollbar(content) && iterations < maxIterations) {
+            console.log('检测到垂直滚动条，增加宽度');
+            currentWidth = Math.min(currentWidth + step, maxWidth);
+            iterations++;
+            requestAnimationFrame(resize);
+        } else {
+            console.log(`最终 width: ${currentWidth}px`);
+            // 调整 iframe 高度
+            iframe.style.height = `${iframeDoc.body.scrollHeight}px`;
+            console.log(`调整后的 iframe 高度: ${iframe.style.height}`);
+        }
+    }
+
+    resize();
+    console.log('adjustCardSize 函数执行完毕');
+}
+
+
+        // 修改 displayGeneratedContent 函数
+        function displayGeneratedContent(content) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = ''; // 清空之前的内容
+
+            // 将内容拆分为多个部分
+            const contentParts = content.split('<div class="preview-container">');
+            
+            contentParts.forEach((part, index) => {
+                if (index === 0) return; // 跳过第一个空元素
+
+                // 创建一个新的 iframe 元素
+                const iframe = document.createElement('iframe');
+                iframe.style.width = '100%';
+                iframe.style.height = '600px'; // 初始高度
+                iframe.style.border = 'none';
+                iframe.style.marginBottom = '20px';
+                
+                // 创建下载按钮
+                const downloadButton = document.createElement('button');
+                downloadButton.textContent = '下载截图';
+                downloadButton.onclick = () => captureAndDownload(iframe);
+                
+                // 创建一个容器来包裹 iframe 和按钮
+                const container = document.createElement('div');
+                container.appendChild(iframe);
+                container.appendChild(downloadButton);
+                
+                // 将容器添加到结果区
+                resultDiv.appendChild(container);
+                
+                // 构建完整的 HTML 内容
+                const iframeContent = `
+                    <!DOCTYPE html>
+                    <html lang="zh">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <style>
+                            body { margin: 0; padding: 0; }
+                            .preview-container { margin-bottom: 20px; }
+                            .preview-title { font-size: 18px; font-weight: bold; margin-bottom: 10px; }
+                            .preview-content { border: 1px solid #ccc; padding: 0px; }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="preview-container">${part}</div>
+                    </body>
+                    </html>
+                `;
+
+                // 将内容写入 iframe
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                iframeDoc.open();
+                iframeDoc.write(iframeContent);
+                iframeDoc.close();
+
+                // 在 iframe 加载完成后调整大小
+                iframe.onload = function() {
+                    adjustCardSize(iframe);
+                };
+            });
+        }
+
+       // 修改捕获和下载函数
+function captureAndDownload(iframe) {
+    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+    const content = iframeDoc.querySelector('.preview-content');
+
+    if (content) {
+        html2canvas(content).then(canvas => {
+            const image = canvas.toDataURL("image/png");
+            const link = document.createElement('a');
+            link.href = image;
+            link.download = 'preview-content-screenshot.png';
+            link.click();
+        });
+    } else {
+        console.error('未找到 .preview-content 元素');
+    }
+}
+
+        // 修改 adjustAllIframes 函数
+        function adjustAllIframes() {
+            const iframes = document.querySelectorAll('iframe');
+            iframes.forEach(iframe => {
+                adjustCardSize(iframe);
+            });
+        }
+
+        // // 修改 generateContent 函数
+        // async function generateContent(mode) {
+        //     const resultDiv = document.getElementById('result');
+        //     resultDiv.innerHTML = '正在生成内容...';
+
+        //     try {
+        //         // 首先加载对应模式的脚本
+        //         await loadModeScript(mode);
+                
+        //         // 然后调用相应的生成函数
+        //         const functionName = mode.split('-').map((part, index) => 
+        //             index === 0 ? part : part.charAt(0).toUpperCase() + part.slice(1)
+        //         ).join('') + 'Generate';
+                
+        //         if (typeof window[functionName] !== 'function') {
+        //             throw new Error('生成器函数未定义');
+        //         }
+                
+        //         const content = await window[functionName]();
+        //         displayGeneratedContent(content);
+                
+        //         // 给予一些时间让 iframe 完全加载
+        //         setTimeout(adjustAllIframes, 100);
+        //     } catch (error) {
+        //         console.error("生成内容失败:", error);
+        //         resultDiv.innerHTML = `<p>抱歉，生成内容时出现错误：${error.message}</p>`;
+        //     }
+        // }
+    </script>
+</body>
+</html>
