@@ -5,6 +5,7 @@
     <title>小红书文字转图片 AI</title>
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/twemoji@12.0.0/2/twemoji.min.js" crossorigin="anonymous"></script>
+    <script src="config.js"></script>
     <script src="emoji.js"></script>
     <!-- 添加下面这行来引入 ai-helper.js -->
     <script src="ai-helper.js"></script>
@@ -17,50 +18,7 @@
             <div class="background-select">
                 <span>选择背景：</span>
                 <div class="background-images">
-                    <div class="background-option-container">
-                        <img src="https://file.yboshi.com/%E6%A0%BC%E5%AD%90%E5%9B%BE.png" alt="背景1" data-value="grid" class="background-option">
-                        <span class="background-label">背景1</span>
-                    </div>
-                    <div class="background-option-container">
-                        <img src="https://file.yboshi.com/%E5%B0%8F%E7%BA%A2%E4%B9%A6%E8%83%8C%E6%99%AF.png" alt="背景2" data-value="memo" class="background-option">
-                        <span class="background-label">背景2</span>
-                    </div>
-                    <div class="background-option-container">
-                        <img src="https://image.songuo.zhieasy.cn/forum/1725505416589_amgdsbt9f.png" alt="背景3" data-value="new" class="background-option">
-                        <span class="background-label">背景3</span>
-                    </div>
-                    <div class="background-option-container">
-                        <img src="https://image.songuo.zhieasy.cn/forum/1725607732456_ql03ire97.png" alt="背景4" data-value="pink" class="background-option">
-                        <span class="background-label">背景4</span>
-                    </div>
-                    <div class="background-option-container">
-                        <img src="https://image.songuo.zhieasy.cn/forum/1725607734325_lnnnzgok7.png" alt="背景5" data-value="blue" class="background-option">
-                        <span class="background-label">背景5</span>
-                    </div>
-                    <div class="background-option-container">
-                        <img src="https://image.songuo.zhieasy.cn/forum/1725607736386_ow6mw8bwe.png" alt="背景6" data-value="green" class="background-option">
-                        <span class="background-label">背景6</span>
-                    </div>
-                    <div class="background-option-container">
-                        <img src="https://image.songuo.zhieasy.cn/forum/1725607738327_vwwvygpi4.png" alt="背景7" data-value="yellow" class="background-option">
-                        <span class="background-label">背景7</span>
-                    </div>
-                    <div class="background-option-container">
-                        <img src="https://image.songuo.zhieasy.cn/forum/1725607740238_wi1am6ima.png" alt="背景8" data-value="purple" class="background-option">
-                        <span class="background-label">背景8</span>
-                    </div>
-                    <div class="background-option-container">
-                        <img src="https://image.songuo.zhieasy.cn/forum/1725608522987_mwoy09rt7.png" alt="背景9" data-value="bg9" class="background-option">
-                        <span class="background-label">背景9</span>
-                    </div>
-                    <div class="background-option-container">
-                        <img src="https://image.songuo.zhieasy.cn/forum/1725608524550_858mc01w7.png" alt="背景10" data-value="bg10" class="background-option">
-                        <span class="background-label">背景10</span>
-                    </div>
-                    <div class="background-option-container">
-                        <img src="https://image.songuo.zhieasy.cn/forum/1725608526559_ll4k5eipw.png" alt="背景11" data-value="bg11" class="background-option">
-                        <span class="background-label">背景11</span>
-                    </div>
+                    <!-- 背景选项将通过 JavaScript 动态添加 -->
                 </div>
             </div>
             <div class="font-toggle">
@@ -284,15 +242,7 @@
         });
 
         document.addEventListener('DOMContentLoaded', () => {
-            const backgroundOptions = document.querySelectorAll('.background-option');
-            backgroundOptions.forEach(option => {
-                option.addEventListener('click', () => {
-                    backgroundOptions.forEach(opt => opt.classList.remove('selected'));
-                    option.classList.add('selected');
-                    // 调用生成图片的方法
-                    document.getElementById('generateButton').click();
-                });
-            });
+            renderBackgroundOptions();
 
             const tabButtons = document.querySelectorAll('.tab-button');
             const tabContents = document.querySelectorAll('.tab-content');
@@ -673,7 +623,9 @@
             outputDiv.innerHTML = '';
 
             // 获取选中的背景
-            const selectedBackground = document.querySelector('.background-option.selected').dataset.value;
+            const selectedBackgroundValue = document.querySelector('.background-option.selected').dataset.value;
+            const selectedBackground = config.backgrounds.find(bg => bg.value === selectedBackgroundValue);
+            const backgroundUrl = selectedBackground ? selectedBackground.url : config.backgrounds[0].url;
 
             for (const [pageIndex, page] of pages.entries()) {
                 console.log(`绘制第 ${pageIndex + 1} 页`);
@@ -687,49 +639,11 @@
                 ctx.scale(scale, scale);
 
                 try {
-                    // 根据选择加载不同的背景图片
-                    let backgroundUrl;
-                    switch (selectedBackground) {
-                        case 'grid':
-                            backgroundUrl = 'https://file.yboshi.com/%E6%A0%BC%E5%AD%90%E5%9B%BE.png';
-                            break;
-                        case 'memo':
-                            backgroundUrl = 'https://file.yboshi.com/%E5%B0%8F%E7%BA%A2%E4%B9%A6%E8%83%8C%E6%99%AF.png';
-                            break;
-                        case 'new':
-                            backgroundUrl = 'https://image.songuo.zhieasy.cn/forum/1725505416589_amgdsbt9f.png';
-                            break;
-                        case 'pink':
-                            backgroundUrl = 'https://image.songuo.zhieasy.cn/forum/1725607732456_ql03ire97.png';
-                            break;
-                        case 'blue':
-                            backgroundUrl = 'https://image.songuo.zhieasy.cn/forum/1725607734325_lnnnzgok7.png';
-                            break;
-                        case 'green':
-                            backgroundUrl = 'https://image.songuo.zhieasy.cn/forum/1725607736386_ow6mw8bwe.png';
-                            break;
-                        case 'yellow':
-                            backgroundUrl = 'https://image.songuo.zhieasy.cn/forum/1725607738327_vwwvygpi4.png';
-                            break;
-                        case 'purple':
-                            backgroundUrl = 'https://image.songuo.zhieasy.cn/forum/1725607740238_wi1am6ima.png';
-                            break;
-                        case 'bg9':
-                            backgroundUrl = 'https://image.songuo.zhieasy.cn/forum/1725608522987_mwoy09rt7.png';
-                            break;
-                        case 'bg10':
-                            backgroundUrl = 'https://image.songuo.zhieasy.cn/forum/1725608524550_858mc01w7.png';
-                            break;
-                        case 'bg11':
-                            backgroundUrl = 'https://image.songuo.zhieasy.cn/forum/1725608526559_ll4k5eipw.png';
-                            break;
-                        default:
-                            backgroundUrl = 'https://file.yboshi.com/%E6%A0%BC%E5%AD%90%E5%9B%BE.png';
-                    }
                     const background = await loadImage(backgroundUrl);
                     ctx.drawImage(background, 0, 0, canvas.width / scale, canvas.height / scale);
 
-                    let y = 20; // 从 20px 开始绘制
+                    // 使用选定背景的起始坐标，如果没有则使用默认值
+                    let { x, y } = selectedBackground.startCoordinates || config.defaultStartCoordinates;
 
                     ctx.font = '20px Microsoft YaHei';
                     y += 35;
@@ -1006,6 +920,42 @@
                 activeContent.style.display = 'block';
             }
         }
+
+        function renderBackgroundOptions() {
+            const backgroundImagesContainer = document.querySelector('.background-images');
+            backgroundImagesContainer.innerHTML = ''; // 清空现有的背景选项
+
+            config.backgrounds.forEach((bg, index) => {
+                const optionContainer = document.createElement('div');
+                optionContainer.className = 'background-option-container';
+                optionContainer.innerHTML = `
+                    <img src="${bg.url}" alt="${bg.name}" data-value="${bg.value}" class="background-option">
+                    <span class="background-label">${bg.name}</span>
+                `;
+                backgroundImagesContainer.appendChild(optionContainer);
+
+                // 为第一个选项添加 'selected' 类
+                if (index === 0) {
+                    optionContainer.querySelector('.background-option').classList.add('selected');
+                }
+            });
+
+            // 添加点击事件监听器
+            const backgroundOptions = document.querySelectorAll('.background-option');
+            backgroundOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    backgroundOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                    // 调用生成图片的方法
+                    generateImage();
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderBackgroundOptions();
+            // ... 其他初始化代码 ...
+        });
 
     </script>
 </body>

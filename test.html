@@ -1,18 +1,156 @@
-<html>
-<meta charset="utf-8">
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>改进的小红书风格长难句解析卡片 - 3:4比例</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .card {
+            width: 75vw; /* 75% of viewport width */
+            max-width: 400px; /* Maximum width */
+            aspect-ratio: 3 / 4; /* 3:4 aspect ratio */
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            margin: 20px 0;
+        }
+        .header {
+            background-color: #ff2442;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-y: auto;
+        }
+        .sentence {
+            background-color: #fff5f5;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-size: 18px;
+            line-height: 1.6;
+            text-align: justify;
+            font-weight: bold;
+            border: 1px solid #ffcccb;
+        }
+        .analysis {
+            display: grid;
+            gap: 12px;
+        }
+        .analysis-item {
+            background-color: #f8f8f8;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+        }
+        .analysis-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #ff2442;
+            font-size: 16px;
+        }
+        .analysis-content {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .highlight-1 { color: #ff2442; }
+        .highlight-2 { color: #ff9f1a; }
+        .highlight-3 { color: #17c964; }
+        .highlight-4 { color: #5271ff; }
+        .underline { border-bottom: 2px solid currentColor; }
+    </style>
+</head>
 <body>
-<h3 style="font-family: 'PingFangSC-Semibold';font-weight: 600;color: #F83130;text-align: justify;line-height: 28px;margin: 60px 0 30px 0;padding: 0 14px;font-size: 20px;">🎵埃尔维斯·科斯特洛在利兹音乐厅开启了他的怀旧之旅
-    <mpchecktext contenteditable="false" id="1725609477599_0.08371385694713451"></mpchecktext>
-</h3>
-<section style="padding: 0 14px;margin: 30px 0 0 0;text-align: center;box-sizing: border-box;" data-type="custom-block">
-    <img class="rich_pages wxw-img" data-ratio="0.562962962962963" data-w="1080" src="https://mmbiz.qpic.cn/sz_mmbiz_jpg/wh7icbn76k0z89raactpmpJ41BDLibNRN4iaEMVT3fQcz4A1FeogBvpqTib1ntA6Z1lTKL9EYp1A9VSr6rtgbcXbPg/640?wx_fmt=jpeg" style="width: 100%;">
-</section>
-<section style="margin: 22px 0;padding: 0 14px;font-size: 15px;color: #222222;text-align: justify;line-height: 27px;font-family: 'PingFangSC-Light';">埃尔维斯·科斯特洛（Elvis Costello）在利兹市中心的城市音乐厅（City Varieties Music Hall）开始了他的演出，这座音乐厅曾接待过查理·卓别林、哈利·胡迪尼等众多名人。
-    <mpchecktext contenteditable="false" id="1725609477600_0.1017008688987322"></mpchecktext>科斯特洛称这次演出为‘假回家’活动，这是他计划中的四场表演之一，名为《五十年十五首歌》的系列演出。
-    <mpchecktext contenteditable="false" id="1725609477601_0.5658452062569419"></mpchecktext>这位出生于帕丁顿的歌手兼词曲作者是爵士号手的儿子，在他的音乐生涯中创作了许多经典作品。
-    <mpchecktext contenteditable="false" id="1725609477602_0.5162340472261711"></mpchecktext>此次演出将深入挖掘他从1977年首张专辑《My Aim is True》到2022年的《The Boy Named If》的音乐宝库，旨在奖励那些对他音乐有着深刻了解的乐迷。
-    <mpchecktext contenteditable="false" id="1725609477603_0.48896913687678745"></mpchecktext>
-</section>
-</body>
+<div class="card">
+    <div class="header">📚 每日英语长难句精析</div>
+    <div class="content">
+        <div class="sentence">
+            <span class="highlight-1">The committee</span>,
+            <span class="highlight-2">which had been tasked with reviewing the proposed changes to the company's organizational structure</span>,
+            <span class="highlight-3">ultimately decided to recommend a comprehensive overhaul</span>,
+            <span class="highlight-4 underline">taking into account not only the immediate financial implications but also the long-term strategic goals that the CEO had repeatedly emphasized during the meetings</span>.
+        </div>
+        <div class="analysis">
+            <div class="analysis-item" style="background-color: #ffebeb;">
+                <div class="analysis-title">1️⃣ 主语</div>
+                <div class="analysis-content"><span class="highlight-1">The committee</span></div>
+                <div>句子主语，指代委员会。</div>
+            </div>
+            <div class="analysis-item" style="background-color: #fff5e6;">
+                <div class="analysis-title">2️⃣ 非限制性定语从句</div>
+                <div class="analysis-content"><span class="highlight-2">which had been tasked with reviewing the proposed changes to the company's organizational structure</span></div>
+                <div>修饰 "The committee"，说明委员会的任务是审查公司组织结构的提议变更。</div>
+            </div>
+            <div class="analysis-item" style="background-color: #e6fff2;">
+                <div class="analysis-title">3️⃣ 谓语和宾语</div>
+                <div class="analysis-content"><span class="highlight-3">ultimately decided to recommend a comprehensive overhaul</span></div>
+                <div>委员会最终决定推荐进行全面改革。</div>
+            </div>
+            <div class="analysis-item" style="background-color: #e6f2ff;">
+                <div class="analysis-title">4️⃣ 伴随状语</div>
+                <div class="analysis-content"><span class="highlight-4 underline">taking into account not only the immediate financial implications but also the long-term strategic goals that the CEO had repeatedly emphasized during the meetings</span></div>
+                <div>委员会在做出决定时，不仅考虑了即时的财务影响，还考虑了CEO在会议上反复强调的长期战略目标。</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function adjustCardSize() {
+        const card = document.querySelector('.card');
+        const content = document.querySelector('.content');
+        let maxWidth = 630; // 初始最大宽度
+        const step = 10; // 每次增加的宽度
+        const maxIterations = 50; // 最大迭代次数，防止无限循环
+        let iterations = 0;
 
+        function resize() {
+            card.style.maxWidth = `${maxWidth}px`;
+
+            // 检查是否有垂直滚动条
+            if (content.scrollHeight > content.clientHeight && iterations < maxIterations) {
+                maxWidth += step;
+                iterations++;
+                requestAnimationFrame(resize);
+            } else {
+                // 微调以确保内容刚好填满
+                while (content.scrollHeight <= content.clientHeight && maxWidth > step) {
+                    maxWidth -= 1;
+                    card.style.maxWidth = `${maxWidth}px`;
+                }
+                maxWidth += 2; // 稍微增加一点以防万一
+                card.style.maxWidth = `${maxWidth}px`;
+            }
+        }
+
+        resize();
+    }
+
+    // 在页面加载完成后执行调整
+    window.addEventListener('load', adjustCardSize);
+
+    // 如果有动态内容加载，可以在内容变化后再次调用
+    // 例如：someContentLoadFunction().then(adjustCardSize);
+</script>
+</body>
 </html>
