@@ -104,12 +104,18 @@
         <div id="result"></div>
     </div>
     <!-- 首先加载 ai-helper.js -->
-    <script src="ai-helper.js"></script>
+    <script src="./ai-helper.js"></script>
 
     <!-- 然后是主脚本 -->
     <script>
-        document.addEventListener('DOMContentLoaded', populateModeSelector);
-
+ // 确保 ai-helper.js 加载完成后再执行 populateModeSelector
+        window.addEventListener('load', function() {
+            if (typeof populateModeSelector === 'function') {
+                populateModeSelector();
+            } else {
+                console.error('populateModeSelector 函数未定义');
+            }
+        });
         // 修改 adjustCardSize 函数
         function adjustCardSize(iframe) {
     console.log('开始执行 adjustCardSize 函数');

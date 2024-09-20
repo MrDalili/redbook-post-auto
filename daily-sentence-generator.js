@@ -243,7 +243,7 @@ async function generateHomepage(sentenceContent, currentDay) {
                 "    </script>\n" +
                 "</body>\n" +
                 "</html>"\n +
-                "直接开始输出html, 并且只输出html即可，不要输出任何多余的内容，内容只包含具体的天数，长难句以及下方的左滑，不要添加其他的内容进去"` }
+                "直接开始输出html, 并且只输出html即可，不要输出任何多余的内容，内容只包含具体的天数，长难句的英文以及下方的左滑，不要添加其他的内容进去"` }
     ];
 
     const result = await callAI(messages);

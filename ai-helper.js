@@ -103,10 +103,10 @@ async function segmentContentWithAI(content) {
     }
 }
 
-// 定义生成模式列表
+
 const generationModes = [
-    { id: 'daily-sentence', name: '生成每日英语长难句', file: 'mode/daily-sentence-generator.js' },
-    { id: 'xiaohongshu-content', name: '生成小红书内容', file: 'mode/xiaohongshu-content-generator.js' },
+    { id: 'daily-sentence', name: '生成每日英语长难句', file: 'daily-sentence-generator.js' },
+    { id: 'xiaohongshu-content', name: '生成小红书内容', file: 'xiaohongshu-content-generator.js' },
     // 可以继续添加其他模式
 ];
 
