@@ -1,18 +1,47 @@
 // AI 相关函数
 
+// async function callAI(messages) {
+//     const apiKey = 'sk-969341f5648b47fcb23ea3639a4ae062';
+//     const apiUrl = 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions';
+//     const corsProxy = 'https://cors-anywhere.herokuapp.com/';
+
+//     try {
+//         const response = await fetch(corsProxy + apiUrl, {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'Authorization': `Bearer ${apiKey}`,
+//                 'X-Requested-With': 'XMLHttpRequest'
+//             },
+//             body: JSON.stringify({
+//                 model: "qwen-plus",
+//                 messages: messages,
+//                 max_tokens: 4095
+//             })
+//         });
+        
+//         if (!response.ok) {
+//             throw new Error(`HTTP错误! 状态: ${response.status}`);
+//         }
+        
+//         return await response.json();
+//     } catch (error) {
+//         console.error("调用API失败:", error);
+//         throw error;
+//     }
+// }
+
 async function callAI(messages) {
-    const apiKey = '0e1ec3fdad241a16189b54ef6de10e96.P951D07Cn2Cw7lIu';
-    const apiUrl = 'https://open.bigmodel.cn/api/paas/v4/chat/completions';
+    const workerUrl = 'https://aliyun-curly-breeze-0a61.ningdahang.workers.dev';
 
     try {
-        const response = await fetch(apiUrl, {
+        const response = await fetch(workerUrl, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${apiKey}`
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                model: "glm-4",
+                model: "qwen-plus",
                 messages: messages,
                 max_tokens: 4095
             })
@@ -112,28 +141,89 @@ const generationModes = [
 
 
 // 填充模式选择器
-        // 修改 populateModeSelector 函数
-        function populateModeSelector() {
-            const modeSelector = document.getElementById('mode-selector');
-            generationModes.forEach(mode => {
-                const option = document.createElement('option');
-                option.value = mode.id;
-                option.textContent = mode.name;
-                modeSelector.appendChild(option);
-            });
-            
-            // 添加模式选择变化事件监听器
-            modeSelector.addEventListener('change', function() {
-                updateInputVisibility(this.value);
-            });
+    // 修改 populateModeSelector 函数
+    function populateModeSelector() {
+        const modeSelector = document.getElementById('mode-selector');
+        generationModes.forEach(mode => {
+            const option = document.createElement('option');
+            option.value = mode.id;
+            option.textContent = mode.name;
+            modeSelector.appendChild(option);
+        });
+        
+        modeSelector.addEventListener('change', function() {
+            updateInputVisibility(this.value);
+            updateSuccessCases(this.value);
+        });
 
-            // 设置初始选中项为第一个选项
-            if (modeSelector.options.length > 0) {
-                modeSelector.selectedIndex = 0;
-                // 触发一次 change 事件，以更新输入框的可见性
-                modeSelector.dispatchEvent(new Event('change'));
-            }
+        if (modeSelector.options.length > 0) {
+            modeSelector.selectedIndex = 0;
+            modeSelector.dispatchEvent(new Event('change'));
         }
+    }
+
+    function updateSuccessCases(selectedMode) {
+        const successCasesDiv = document.getElementById('success-cases');
+        const caseList = document.getElementById('case-list');
+        caseList.innerHTML = ''; // 清空现有内容
+
+        let cases = [];
+        switch(selectedMode) {
+            case 'xiaohongshu-content':
+                cases = [
+                    "https://image.songuo.zhieasy.cn/preview-content-screenshot%20%2812%29.png",
+                    "https://image.songuo.zhieasy.cn/preview-content-screenshot%20%2813%29.png"
+                ];
+                break;
+            case 'daily-sentence':
+                // 可以为每日英语长难句添加不同的案例图片
+                cases = [
+                    "https://example.com/daily-sentence-case1.png",
+                    "https://example.com/daily-sentence-case2.png"
+                ];
+                break;
+            // 可以为其他模式添加更多 case
+        }
+
+        if (cases.length > 0) {
+            cases.forEach(caseImg => {
+                const li = document.createElement('li');
+                const img = document.createElement('img');
+                img.src = caseImg;
+                img.alt = "成功案例";
+                img.onclick = function() {
+                    openModal(this.src);
+                };
+                li.appendChild(img);
+                caseList.appendChild(li);
+            });
+            successCasesDiv.style.display = 'block';
+        } else {
+            successCasesDiv.style.display = 'none';
+        }
+    }
+
+    // 新增函数：打开模态框
+    function openModal(imgSrc) {
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modal-img');
+        modal.style.display = "block";
+        modalImg.src = imgSrc;
+    }
+
+    // 关闭模态框
+    const modal = document.getElementById('modal');
+    const span = document.getElementsByClassName("close")[0];
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // 点击模态框外部也可以关闭
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 
 // 新增函数：更新输入框可见性
 function updateInputVisibility(selectedMode) {
