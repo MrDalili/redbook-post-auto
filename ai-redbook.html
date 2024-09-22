@@ -9,8 +9,8 @@
             display: flex;
             height: 100vh;
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
         }
         .left-panel, .right-panel {
             padding: 20px;
@@ -20,98 +20,148 @@
             width: 30%;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
             align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
         }
         .right-panel {
             width: 70%;
             background-color: #ffffff;
-            border-left: 1px solid #ccc;
+            border-left: 1px solid #e0e0e0;
         }
         .card {
             background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 30px;
             margin-bottom: 20px;
             width: 100%;
-            max-width: 300px;
+            max-width: 400px;
+            box-sizing: border-box;
         }
+        
+        .input-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s;
+        resize: vertical;
+        min-height: 100px;
+        font-family: inherit;
+    }
+
+    .input-group textarea:focus {
+        border-color: #4CAF50;
+        outline: none;
+    }
+
         .input-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            width: 100%;
         }
 
         .input-group label {
-            display: inline-block;
-            width: 100px;
-            margin-right: 10px;
-            text-align: right;
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .input-group input,
+        .input-group textarea,
+        select,
+        button {
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .input-group input {
-            width: calc(100% - 115px);
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
         }
 
-        select, button {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+        .input-group input:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        select {
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
             font-size: 16px;
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right 12px top 50%;
+            background-size: 12px auto;
         }
 
         button {
+            padding: 14px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
             background-color: #4CAF50;
             color: white;
-            border: none;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.1s;
         }
 
         button:hover {
             background-color: #45a049;
         }
 
+        button:active {
+            transform: scale(0.98);
+        }
+
         #success-cases {
-            margin-top: 20px;
+            margin-top: 30px;
         }
 
         #success-cases h2 {
             color: #333;
-            margin-bottom: 15px;
-            font-size: 18px;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: 600;
         }
 
         #case-list {
             list-style-type: none;
             padding: 0;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
+            flex-direction: column;
+            align-items: center;
         }
 
         #case-list li {
-            margin: 10px;
-            width: 100px;
-            height: 100px;
+            margin: 15px 0;
+            width: 100%;
+            height: auto;
             overflow: hidden;
             cursor: pointer;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            transition: border-color 0.3s;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
 
         #case-list li:hover {
             border-color: #4CAF50;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         #case-list img {
             width: 100%;
-            height: 100%;
+            height: auto;
             object-fit: cover;
         }
 
@@ -166,7 +216,7 @@
                 </div>
                 <div class="input-group">
                     <label for="custom-sentence">自定义长难句:</label>
-                    <input type="text" id="custom-sentence" placeholder="输入长难句(可选)">
+                    <textarea id="custom-sentence" placeholder="输入长难句(可选)" rows="4"></textarea>
                 </div>
             </div>
             <button onclick="generateContent(document.getElementById('mode-selector').value)">开始生成</button>
@@ -177,6 +227,10 @@
                 <ul id="case-list"></ul>
             </div>
         </div>
+    </div>
+    
+    <div class="right-panel">
+        <div id="result"></div>
     </div>
     
     <!-- 新增模态框 -->
@@ -212,8 +266,9 @@
     console.log('找到 .card 和 .content 元素');
     let currentWidth = 300; // 初始宽度
     const minWidth = 300; // 最小宽度
-    const maxWidth = Math.min(900, window.innerWidth * 0.9); // 最大宽度，不超过窗口宽度的90%
-    const step = 5; // 每次调整的宽度
+    // const maxWidth = Math.min(900, window.innerWidth * 0.9); // 最大宽度，不超过窗口宽度的90%
+    const maxWidth = window.innerWidth; // 最大宽度，不超过窗口宽度的90%
+    const step = 10; // 每次调整的宽度
     const maxIterations = 100; // 最大迭代次数
     let iterations = 0;
 
@@ -312,18 +367,41 @@
        // 修改捕获和下载函数
 function captureAndDownload(iframe) {
     const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-    const content = iframeDoc.querySelector('.preview-content');
+    const content = iframeDoc.querySelector('.preview-container');
 
     if (content) {
-        html2canvas(content).then(canvas => {
-            const image = canvas.toDataURL("image/png");
+        // 临时设置背景颜色为白色
+        const originalBackground = content.style.backgroundColor;
+        content.style.backgroundColor = 'white';
+
+        html2canvas(content, {
+            backgroundColor: '#ffffff', // 设置捕获的背景颜色为白色
+            scale: 2 // 提高分辨率
+        }).then(canvas => {
+            // 恢复原始背景颜色
+            content.style.backgroundColor = originalBackground;
+
+            // 创建一个新的 canvas 并绘制白色背景
+            const newCanvas = document.createElement('canvas');
+            newCanvas.width = canvas.width;
+            newCanvas.height = canvas.height;
+            const ctx = newCanvas.getContext('2d');
+            
+            // 绘制白色背景
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, newCanvas.width, newCanvas.height);
+            
+            // 在白色背景上绘制原始内容
+            ctx.drawImage(canvas, 0, 0);
+
+            const image = newCanvas.toDataURL("image/png");
             const link = document.createElement('a');
             link.href = image;
             link.download = 'preview-content-screenshot.png';
             link.click();
         });
     } else {
-        console.error('未找到 .preview-content 元素');
+        console.error('未找到 .preview-container 元素');
     }
 }
 

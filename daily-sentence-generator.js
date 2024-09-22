@@ -19,14 +19,12 @@ async function dailySentenceGenerate(currentDay, customSentence) {
         <style>
             .preview-container { margin-bottom: 20px; }
             .preview-title { font-size: 18px; font-weight: bold; margin-bottom: 10px; }
-            .preview-content { border: 1px solid #ccc; padding: 0px; }
+            .preview-content {  padding: 0px; }
         </style>
         <div class="preview-container">
-            <div class="preview-title">小红书首页预览</div>
             <div class="preview-content">${homepageResult}</div>
         </div>
         <div class="preview-container">
-            <div class="preview-title">小红书内容页面预览</div>
             <div class="preview-content">${contentPageResult}</div>
         </div>
     `;
@@ -39,69 +37,45 @@ async function generateSentence() {
         { role: "system", content: "你是一个专业的英语教育助手。请生成一个富有挑战性的英语长句,并提供中文翻译和语法解析。" },
         { role: "user", content: "- Role: 英语语言学家和句子结构分析师\n" +
                 "- Background: 用户在阅读英语文献或学习过程中遇到复杂难解的长句子，需要深入分析句子结构以理解其含义。\n" +
-                "- Profile: 你是一位专注于英语句子结构分析的专家，拥有深厚的语法学知识和丰富的教学经验，能够清晰地解析长难句的语法结构和语义关系。\n" +
-                "- Skills: 你具备高级的语法分析能力，能够识别并解释各种从句、非谓语动词结构、倒装句、强调句型等复杂句型，以及它们在句子中的作用和意义。\n" +
                 "- Goals: 帮助用户理解英语长难句的结构和含义，提高用户对英语复杂句型的分析能力。\n" +
-                "- Constrains: 分析应准确无误，解释清晰易懂，避免过度简化或复杂化，确保用户能够理解和应用。\n" +
-                "- OutputFormat: 提供句子结构的详细解析，包括主干和从属结构的划分、语法功能的标注、以及可能的语义解释。\n" +
+                "- OutputFormat: 提供句子结构的详细解析，包括主干和从属结构的划分、语法功能的标注、以及可能的语义解释。看我提供example的内容\n" +
                 "- Workflow:\n" +
                 "  1. 生成一个英语的长难句，字数最起码在30字以上\n" +
                 "  2. 确定句子的主语和谓语，识别句子的主干结构。\n" +
                 "  3. 分析并标注各种从句和非谓语动词结构，解释它们在句子中的作用。\n" +
                 "  4. 识别并解释任何特殊的句型结构，如倒装、强调等。\n" +
-                "  5. 提供句子的语义解释，帮助用户理解句子的整体含义。\n" +
+                "  5. 根据我提供的example中的格式进行输出。\n" +
                 "- Examples:\n" +
                 "{{\n" +
-                "长难句：\n" +
-                "Despite the fact that the new policy has been widely criticized by both environmentalists and economists for its potential negative impact on the local ecosystem and the overall economy, the government remains steadfast in its commitment to implement it, citing the urgent need to address the growing energy crisis and the long-term benefits it believes will outweigh the short-term costs.\n" +
-                "\n" +
-                "解析：\n" +
-                "句子结构:\n" +
-                "\n" +
-                "这是一个包含多个从句和插入语的复杂句，主干结构为 \"the government remains steadfast\"。\n" +
-                "\n" +
-                "\"Despite the fact that...\" 引导让步状语从句，其中包含 \"that\" 引导的同位语从句，解释 \"the fact\" 的内容。\n" +
-                "\n" +
-                "\"for its potential negative impact on the local ecosystem and the overall economy\" 是介词短语作原因状语，修饰 \"criticized\"。\n" +
-                "\n" +
-                "\"citing the urgent need to address the growing energy crisis and the long-term benefits it believes will outweigh the short-term costs\" 是现在分词短语作伴随状语，其中包含 \"it believes\" 引导的插入语，以及 \"that\" 引导的宾语从句。\n" +
-                "\n" +
-                "句子成分:\n" +
-                "\n" +
-                "主语: the government\n" +
-                "\n" +
-                "谓语: remains\n" +
-                "\n" +
-                "表语: steadfast\n" +
-                "\n" +
-                "状语:\n" +
-                "\n" +
-                "让步状语: Despite the fact that the new policy has been widely criticized by both environmentalists and economists for its potential negative impact on the local ecosystem and the overall economy\n" +
-                "\n" +
-                "伴随状语: citing the urgent need to address the growing energy crisis and the long-term benefits it believes will outweigh the short-term costs\n" +
-                "\n" +
-                "句子意思:\n" +
-                "\n" +
-                "尽管新政策因其可能对当地生态系统和整体经济造成的负面影响而受到环保主义者和经济学家的广泛批评，但政府仍坚定不移地致力于实施该政策，并指出迫切需要解决日益严重的能源危机，以及其认为将超过短期成本的长期利益。\n" +
-                "\n" +
-                "解析重点:\n" +
-                "\n" +
-                "该句使用了让步状语从句和伴随状语，增加了句子的复杂性。\n" +
-                "\n" +
-                "\"despite\" 和 \"citing\" 的使用，体现了政府在面对批评时的态度和理由。\n" +
-                "\n" +
-                "句子信息量大，包含了对新政策的批评、政府的立场以及实施新政策的理由。\n" +
-                "\n" +
-                "理解难点:\n" +
-                "\n" +
-                "多个从句和插入语的嵌套，容易造成理解上的混乱。\n" +
-                "\n" +
-                "需要理清句子主干和各个修饰成分之间的关系。\n" +
-                "\n" +
-                "对 \"despite\", \"citing\", \"it believes\" 等词汇的理解，有助于把握句子含义。\n" +
+                `   长难句：\n\nAlthough the innovative project promised significant advancements in renewable energy technology and was initially met with enthusiasm from stakeholders across various sectors, it faced unforeseen challenges in securing consistent funding, which ultimately led to delays in its development, causing many of the original supporters to reconsider their involvement due to concerns about the project's sustainability and the perceived lack of tangible progress.
+
+句子大概分成几个模块:
+让步从句 (Although 引导)
+结果状语从句
+原因状语
+让步从句 (Although 引导)
+具体原文:
+Although the innovative project promised significant advancements in renewable energy technology and was initially met with enthusiasm from stakeholders across various sectors...
+
+主语是 the innovative project （创新项目），谓语1是 promised （承诺），宾语是 significant advancements in renewable energy technology （在可再生能源技术方面的重大进展），连接词是 and （并且/而且），谓语2是 was met with （遇到了），宾语是 enthusiasm from stakeholders across various sectors （来自各行各业利益相关者的热情），状语是 initially （最初）。意思：虽然这个创新项目承诺在可再生能源技术方面取得重大突破，并且最初得到了来自各个领域利益相关者的热情支持，
+
+结果状语从句
+具体原文:
+which ultimately led to delays in its development
+
+主语是 which （指代前面提到的情况），谓语是 led to （导致），宾语是 delays in its development （其发展的延误）。意思：这最终导致了其发展的延误。
+
+原因状语
+具体原文:
+causing many of the original supporters to reconsider their involvement due to concerns about the project's sustainability and the perceived lack of tangible progress.
+
+主语是 causing （导致），宾语是 many of the original supporters （许多最初的资助者），动词不定式是 to reconsider their involvement （重新考虑他们的参与），原因状语是 due to concerns about the project's sustainability and the perceived lack of tangible progress （由于对项目可持续性的担忧以及对缺乏实质性进展的看法）。意思：导致许多最初的资助者重新考虑他们的参与，因为他们担心项目的可持续性并且觉得缺乏实质性的进展。
+
+整句意思总结:
+虽然这个创新项目承诺在可再生能源技术方面取得重大突破，并且最初得到了来自各个领域利益相关者的热情支持，但在确保持续资金方面遇到了未曾预料到的挑战，这最终导致了其发展的延误，许多最初的资助者因此重新考虑他们的参与，因为他们担心项目的可持续性并且觉得缺乏实质性的进展。` +
                 "}}\n" +
                 "\n" +
-                "- Initialization: 直接根据workflow开始生成，并按照example的要求进行分析" }
+                "- Initialization: 直接根据workflow开始生成，并按照example的要求进行分析,**你需要记住，你个成分分析都需要仔细并且用通俗易懂的表达出来，不要只说成分不说意思以及为什么这么用**" }
     ];
 
     const result = await callAI(messages);
@@ -114,7 +88,7 @@ async function generateHomepage(sentenceContent, currentDay) {
     const messages = [
         { role: "system", content: "你是一个专业的小红书内容创作助手。请根据给定的英语长句和解析,生成一个吸引人的小红书首页内容。" },
         { role: "user", content: `"这个是个html，你帮我下面的内容 填充到这个html里面去，确保页面不要变形, 并且按照正常的比例把内容展示出来，天数和句子都放进去\n" +
-                "\n" +
+                "**请注意将{{}}中的内容都按照我的要求进行替换了，一个是第几天，一个是具体的长难句的内容，不要添加其它没用的内容**\n" +
                 "今天是第{{${currentDay}}}天\n" +
                 "下面是具体的长难句的内容\n" +
                 "{{\n" +
@@ -135,7 +109,6 @@ async function generateHomepage(sentenceContent, currentDay) {
                 "            align-items: center;\n" +
                 "            height: 100vh;\n" +
                 "            margin: 0;\n" +
-                "            background-color: #f0f0f0;\n" +
                 "            font-family: Arial, sans-serif;\n" +
                 "        }\n" +
                 "        .arrow-left {\n" +
@@ -265,6 +238,11 @@ async function generateContentPage(sentenceContent) {
 }}
 你需要根据我输入的长难句解析内容，对内容进行分块和分颜色，并且填入到各个{{}}中去，并且需要确保内容讲解的清晰，学生看了之后可以理解
 除此之外，你必须要要满足，生成的卡片的内容可以正常铺满这个 html，不要有多余的空白，或者内容超出这个 html，如果会出现，请提前调整页面卡片的大小。
+其中：
+**{{解析 1}}这些代表具体可以被解析的标题或者内容，比如说这里写“主语”，“谓语”，“让步状语”，“定语”等等代表我们需要去解释的内容的一个小的标题，这个在我传图的长难句的内容中有展示**
+**{{这里是需要解释的具体的内容}}是我们需要具体去展示的内容，从长难句的内容直接提取**
+analysis-item这个item可能会有很多，请根据我给你的sentencecontent中的内容进行迭代，一般来说会有5-8个需要你迭代展示的。所以你需要把握好具体的长难句的展示和解析
+最后生成的内容，需要把{{}}括号删除。
 
 <!DOCTYPE html>
 <html lang="zh">
@@ -280,7 +258,6 @@ async function generateContentPage(sentenceContent) {
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #f5f5f5;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
         .card {
@@ -376,16 +353,16 @@ async function generateContentPage(sentenceContent) {
                     <div>{{这里是需要解释的具体的内容}}</div>
                 </div>
                 <div class="analysis-item" style="background-color: #e6f2ff;">
-                    <div class="analysis-title">4️⃣ {{解析 4}}</div>
-                    <div class="analysis-content"><span class="highlight-4 underline">{{需要解析的内容}}</span></div>
-                    <div>{{这里是需要解释的具体的内容}}</div>
+                    <div class="analysis-title">4️⃣ {{让步状语}}</div>
+                    <div class="analysis-content"><span class="highlight-4 underline">{{the innovative approach to renewable energy production proposed by the research team has garnered significant attention from international stakeholders and promises a breakthrough in sustainable development}}</span></div>
+                    <div>{{这个句子由主语"the innovative approach to renewable energy production proposed by the research team"（研究团队提出的创新可再生能源生产方法）开始，接着使用并列谓语结构，第一部分是"has garnered significant attention from international stakeholders"（已经获得了国际利益相关者的重要关注），通过连接词"and"与第二部分"promises a breakthrough in sustainable development"（承诺在可持续发展方面取得突破）相连，形成一个完整的复合句，传达了这种创新方法既已引起广泛关注又有望带来重大突破的信息。}}</div>
                 </div>
             </div>
         </div>
     </div>
 </body>
 </html>
-直接输出最终的html**如果出现长难句解析和html内容对应不上的情况，请不要自动调整，就按照我的格式要求做一下改动即可，但是不要输出与html无关的信息，尤其是你的开始内容和结束内容，直接从\`\`\`html开始输出**，并且哟\`\`\`结尾，结束之后不要再输出任何内容！` }
+直接输出最终的html**如果出现长难句解析和html内容对应不上的情况，请不要自动调整，就按照我的格式要求做一下改动即可，但是不要输出与html无关的信息** 除此之外记得将{{}}中的内容进行合理性的替换，不要原样输出` }
     ];
 
     const result = await callAI(messages);

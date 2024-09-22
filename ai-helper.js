@@ -171,15 +171,15 @@ const generationModes = [
         switch(selectedMode) {
             case 'xiaohongshu-content':
                 cases = [
-                    "https://image.songuo.zhieasy.cn/preview-content-screenshot%20%2812%29.png",
-                    "https://image.songuo.zhieasy.cn/preview-content-screenshot%20%2813%29.png"
+                    "https://image.songuo.zhieasy.cn/preview-content-screenshot%20%2813%29.png",
+                    "https://image.songuo.zhieasy.cn/preview-content-screenshot%20%2812%29.png"
                 ];
                 break;
             case 'daily-sentence':
                 // 可以为每日英语长难句添加不同的案例图片
                 cases = [
-                    "https://example.com/daily-sentence-case1.png",
-                    "https://example.com/daily-sentence-case2.png"
+                    "https://image.songuo.zhieasy.cn/preview-content-screenshot%20%2813%29.png",
+                    "https://image.songuo.zhieasy.cn/preview-content-screenshot%20%2812%29.png"
                 ];
                 break;
             // 可以为其他模式添加更多 case
@@ -268,7 +268,13 @@ async function loadModeScript(modeId) {
 // 修改 generateContent 函数
 async function generateContent(mode) {
     console.log("generateContent 被调用，模式为:", mode);
+    console.trace(); // 这会打印出调用栈，帮助我们了解函数是从哪里被调用的
+
     const resultDiv = document.getElementById('result');
+    if (!resultDiv) {
+        console.error("未找到 'result' 元素");
+        return;
+    }
     resultDiv.innerHTML = '正在生成内容...';
 
     try {
@@ -284,9 +290,9 @@ async function generateContent(mode) {
         
         let content;
         if (mode === 'daily-sentence') {
-            const currentDay = document.getElementById('current-day').value;
-            const customSentence = document.getElementById('custom-sentence').value;
-            console.log("传递给生成函数的参数:", currentDay, customSentence); // 添加这行日志
+            const currentDay = document.getElementById('current-day')?.value;
+            const customSentence = document.getElementById('custom-sentence')?.value;
+            console.log("传递给生成函数的参数:", currentDay, customSentence);
             content = await window[functionName](currentDay, customSentence);
         } else {
             content = await window[functionName]();
@@ -297,9 +303,12 @@ async function generateContent(mode) {
         setTimeout(adjustAllIframes, 100);
     } catch (error) {
         console.error("生成内容失败:", error);
-        resultDiv.innerHTML = `<p>抱歉，生成内容时出现错误：${error.message}</p>`;
+        if (resultDiv) {
+            resultDiv.innerHTML = `<p>抱歉，生成内容时出现错误：${error.message}</p>`;
+        }
     }
 }
+
 
 // 将函数添加到全局作用域
 window.polishContentWithAI = polishContentWithAI;
